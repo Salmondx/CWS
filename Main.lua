@@ -1,6 +1,33 @@
 local appName = "|CWES:|r ";
 local CWESFrame = CreateFrame("FRAME") CWESFrame:Hide()
 
+local soundsToMute = {
+	-- WARRRIOR
+	-- slam
+	1258146,
+	1258147,
+	1258148,
+	1258149,
+	-- whirlwind
+	1093788,
+	1093789,
+	1093790,
+	1093791,
+	1093792,
+	-- mortal strike
+	1267929,
+	1267930,
+	1267931,
+	1267932,
+	1267933,
+	-- ms impact
+	1093783,
+	1093784,
+	1093785,
+	1093786,
+	1093787,
+};
+
 local _debug = true -- Enable to Display debug messages.
 function errTxt(msg)
 	if ( _debug == false ) then
@@ -8,13 +35,19 @@ function errTxt(msg)
 	end
 end
 
+function MuteSounds()
+	for i, id in ipairs(soundsToMute) do
+		MuteSoundFile(id);
+	end
+end
+
 function CWESFrame:ADDON_LOADED(arg1)
 	if arg1 ~= "CWES" then
                 return
 	end
-		self:UnregisterEvent("ADDON_LOADED")
-		print(appName.. "Loaded");
-
+	self:UnregisterEvent("ADDON_LOADED")
+	print(appName.. "Loaded");
+	MuteSounds();
 end
 
 local PlagueStrikeSounds = {
@@ -41,6 +74,12 @@ local Swords2HSwings = {
 	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit2.ogg",
 	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit3.ogg",
 	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit4.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit5.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit6.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit7.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit8.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit9.ogg",
+	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Swords_2H\\Hit10.ogg",
 };
 
 local Maces2HSwings = {
@@ -114,7 +153,6 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 		-- Begin Festering Strike
 		if spellID == 85948 then
 			PlaySoundFile(PlagueStrikeSounds[math.random(#PlagueStrikeSounds)], "Master");
-			PlaySwingSound();
 		end
 
 		-- D&D 43265
@@ -140,6 +178,32 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 		if spellID == 47541 then
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ShadowCast.ogg", "Master");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DeathCoil.ogg", "Master");
+		end
+
+
+		-- warrior
+		-- Slam
+		if spellID == 1464 then
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "Master");
+			PlaySwingSound();
+		end
+		-- Whirlwind
+		if spellID == 1680 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Whirlwind.ogg", "Master");
+		end
+
+		-- Mortal Strike
+		if spellID == 12294 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "Master");
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "Master");
+			PlaySwingSound();
+		end
+
+		-- Execute
+		if spellID == 163201 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireShield.ogg", "Master");
 		end
 	end
 
