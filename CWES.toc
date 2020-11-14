@@ -1,0 +1,7 @@
+## Interface: 90001
+## Title: CWES
+## Author: Salmond
+## Version: 1.0.0
+## Notes: Completely replaces DK sounds
+
+Main.lua
