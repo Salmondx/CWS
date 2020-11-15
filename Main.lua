@@ -26,6 +26,11 @@ local soundsToMute = {
 	1093785,
 	1093786,
 	1093787,
+	-- overpower
+	1337829,
+	1337830,
+	1337831,
+	1337832,
 };
 
 local _debug = true -- Enable to Display debug messages.
@@ -117,11 +122,11 @@ transmogLocation.modification=0
 function PlaySwingSound()
 	local itemType = DetectWeaponType();
 	if itemType == "2H Mace" then
-		PlaySoundFile(Maces2HSwings[math.random(#Maces2HSwings)], "Master");
+		PlaySoundFile(Maces2HSwings[math.random(#Maces2HSwings)], "SFX");
 	elseif itemType == "2H Sword" then
-		PlaySoundFile(Swords2HSwings[math.random(#Swords2HSwings)], "Master");
+		PlaySoundFile(Swords2HSwings[math.random(#Swords2HSwings)], "SFX");
 	elseif itemType == "2H Axe" then
-		PlaySoundFile(Axes2HSwings[math.random(#Axes2HSwings)], "Master");
+		PlaySoundFile(Axes2HSwings[math.random(#Axes2HSwings)], "SFX");
 	end;
 end
 
@@ -144,67 +149,81 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 
 		-- Begin Scourge Strike
 		if spellID == 55090 then
-			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\HellRot.ogg", "Master");
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\HellRot.ogg", "SFX");
 			PlaySwingSound();
 		end
 
 		-- Begin Festering Strike
 		if spellID == 85948 then
-			PlaySoundFile(PlagueStrikeSounds[math.random(#PlagueStrikeSounds)], "Master");
+			PlaySoundFile(PlagueStrikeSounds[math.random(#PlagueStrikeSounds)], "SFX");
 		end
 
 		-- D&D 43265
 		if spellID == 43265 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DnD.ogg", "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DnD2.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DnD.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DnD2.ogg", "SFX");
 		end
 
 		-- Death Strike
 		if spellID == 49998 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "Master");
-			PlaySoundFile(DSSounds[math.random(#DSSounds)], "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+			PlaySoundFile(DSSounds[math.random(#DSSounds)], "SFX");
 			PlaySwingSound();
 		end
 
 		-- Outbreak
 		if spellID == 77575 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ShadowCast.ogg", "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\HellRot.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ShadowCast.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\HellRot.ogg", "SFX");
 		end
 
 		-- Death Coil
 		if spellID == 47541 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ShadowCast.ogg", "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DeathCoil.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ShadowCast.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\DeathCoil.ogg", "SFX");
 		end
 
 
 		-- warrior
 		-- Slam
 		if spellID == 1464 then
-			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "Master");
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
 			PlaySwingSound();
 		end
 		-- Whirlwind
 		if spellID == 1680 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Whirlwind.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Whirlwind.ogg", "SFX");
 		end
 
 		-- Mortal Strike
 		if spellID == 12294 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "Master");
-			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "Master");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "Master");
 			PlaySwingSound();
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
 		end
 
 		-- Execute
 		if spellID == 163201 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireShield.ogg", "Master");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireShield.ogg", "SFX");
 		end
+
+		-- overpower
+		if spellID == 7384 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+		end
+
+		-- rend
+		if spellID == 772 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+		end
+
+		-- C_Timer.After
 	end
 
 end
