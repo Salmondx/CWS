@@ -143,6 +143,14 @@ function DetectWeaponType()
 	end;
 end
 
+function BladestormRend()
+	local found = select(1, AuraUtil.FindAuraByName("Bladestorm", "player"));
+	if found ~= nil then
+		PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+		C_Timer.After(1, BladestormRend);
+	end
+end
+
 function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 	if unitID == "player" then
 		errTxt("Spell cast Succeeded by ".. unitID);
@@ -221,6 +229,12 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 		-- rend
 		if spellID == 772 then
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+		end
+
+		if spellID == 227847 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\BladestormStart.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\BladestormChannel.ogg", "SFX");
+			BladestormRend();
 		end
 
 		-- C_Timer.After
