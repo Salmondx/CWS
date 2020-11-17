@@ -237,7 +237,12 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 			BladestormRend();
 		end
 
-		-- C_Timer.After
+		-- Avatar
+		if spellID == 107574 then
+			print("Here");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireCast.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\RecklessnessCast.ogg", "SFX");
+		end
 	end
 
 end
