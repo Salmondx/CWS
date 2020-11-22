@@ -1,6 +1,8 @@
 local appName = "|CWES:|r ";
 local CWESFrame = CreateFrame("FRAME") CWESFrame:Hide()
 
+local playerGUID = UnitGUID("player");
+
 local soundsToMute = {
 	-- WARRRIOR
 	-- slam
@@ -113,6 +115,12 @@ local Axes2HSwings = {
 	"Interface\\Addons\\CWES\\Sounds\\Weapons\\Axes_2H\\Hit10.ogg",
 };
 
+-- contains IDs of spells that should play a Rend sound on crit
+local CritEffect = {
+	[7384] = true,
+	[12294] = true,
+};
+
 local TransmogLocationMixin={}
 local transmogLocation = CreateFromMixins(TransmogLocationMixin)
 transmogLocation.slotID=16
@@ -151,6 +159,26 @@ function BladestormRend()
 	end
 end
 
+-- Not Used. Was an attempt to play crit related sounds but without Rend sounds
+-- on retail it sounds bad. To much ambient noise on retail comparing to Classic
+function CWESFrame:COMBAT_LOG_EVENT_UNFILTERED()
+	HandleCombatLog(CombatLogGetCurrentEventInfo());
+end
+
+function HandleCombatLog(...)
+	local ts, subevent, _, sourceGUID = ...;
+	if sourceGUID ~= playerGUID then
+		return;
+	end
+
+	if subevent == "SPELL_DAMAGE" then
+		local spellId, _, _, _, _, _, _, _, _, critical = select(12, ...);
+		if CritEffect[spellId] and critical then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+		end
+	end
+end
+--
 function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 	if unitID == "player" then
 		errTxt("Spell cast Succeeded by ".. unitID);
@@ -239,7 +267,6 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 
 		-- Avatar
 		if spellID == 107574 then
-			print("Here");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireCast.ogg", "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\RecklessnessCast.ogg", "SFX");
 		end
@@ -250,3 +277,4 @@ CWESFrame:SetScript("OnEvent", function(self, event, ...) return self[event](sel
 CWESFrame:RegisterEvent("ADDON_LOADED")
 CWESFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 CWESFrame:RegisterEvent("PLAYER_DEAD")
+-- CWESFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
