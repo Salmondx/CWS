@@ -118,7 +118,7 @@ local Axes2HSwings = {
 -- contains IDs of spells that should play a Rend sound on crit
 local CritEffect = {
 	[7384] = true,
-	[12294] = true,
+	-- [12294] = true,
 };
 
 local TransmogLocationMixin={}
@@ -237,8 +237,8 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 		-- Mortal Strike
 		if spellID == 12294 then
 			PlaySwingSound();
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
 			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
 		end
 
@@ -249,9 +249,9 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 
 		-- overpower
 		if spellID == 7384 then
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
 			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
-			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			-- PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
 		end
 
 		-- rend
@@ -277,4 +277,4 @@ CWESFrame:SetScript("OnEvent", function(self, event, ...) return self[event](sel
 CWESFrame:RegisterEvent("ADDON_LOADED")
 CWESFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
 CWESFrame:RegisterEvent("PLAYER_DEAD")
--- CWESFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
+CWESFrame:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED");
