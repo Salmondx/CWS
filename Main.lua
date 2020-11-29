@@ -270,6 +270,17 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireCast.ogg", "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\RecklessnessCast.ogg", "SFX");
 		end
+
+		-- revenge
+		if spellID == 6572 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Revenge.ogg", "SFX");
+		end
+
+		-- thunder clap
+		if spellID == 6343 then
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\ThunderClap.ogg", "SFX");
+			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Lightning.ogg", "SFX");
+		end
 	end
 
 end
