@@ -159,6 +159,13 @@ function BladestormRend()
 	end
 end
 
+function PlayCleaveSoundIfSweepingStrikes()
+	local found = select(1, AuraUtil.FindAuraByName("Sweeping Strikes", "player"));
+	if found ~= nil then
+		PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Cleave.ogg", "SFX");
+	end
+end
+
 -- Not Used. Was an attempt to play crit related sounds but without Rend sounds
 -- on retail it sounds bad. To much ambient noise on retail comparing to Classic
 function CWESFrame:COMBAT_LOG_EVENT_UNFILTERED()
@@ -227,6 +234,7 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 		if spellID == 1464 then
 			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
 			PlaySwingSound();
+			PlayCleaveSoundIfSweepingStrikes();
 		end
 		-- Whirlwind
 		if spellID == 1680 then
@@ -240,17 +248,20 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
+			PlayCleaveSoundIfSweepingStrikes();
 		end
 
 		-- Execute
 		if spellID == 163201 then
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\FireShield.ogg", "SFX");
+			PlayCleaveSoundIfSweepingStrikes();
 		end
 
 		-- overpower
 		if spellID == 7384 then
 			PlaySoundFile(SwingSounds[math.random(#SwingSounds)], "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Decisive.ogg", "SFX");
+			PlayCleaveSoundIfSweepingStrikes();
 			-- PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
 		end
 
@@ -259,6 +270,7 @@ function CWESFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\Rend.ogg", "SFX");
 		end
 
+		-- bladestorm
 		if spellID == 227847 then
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\BladestormStart.ogg", "SFX");
 			PlaySoundFile("Interface\\Addons\\CWES\\Sounds\\BladestormChannel.ogg", "SFX");
