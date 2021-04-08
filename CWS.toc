@@ -1,0 +1,7 @@
+## Interface: 90001
+## Title: CWS
+## Author: Salmond
+## Version: 1.0.0
+## Notes: Completely replaces warrior sounds
+
+Main.lua
