@@ -296,6 +296,7 @@ function CWSFrame:UNIT_SPELLCAST_SUCCEEDED(unitID, lineID, spellID)
 	end
 
 end
+
 CWSFrame:SetScript("OnEvent", function(self, event, ...) return self[event](self, ...) end)
 CWSFrame:RegisterEvent("ADDON_LOADED")
 CWSFrame:RegisterEvent("UNIT_SPELLCAST_SUCCEEDED")
